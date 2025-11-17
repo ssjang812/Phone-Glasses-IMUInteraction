@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Main" style="display: flex;">
+        <ui:Label text="WISE UI/UX Application" display-tooltip-when-elided="true" style="-unity-font-definition: url(&quot;project://database/Assets/WLIM_Phone/Base/UI/Fonts/NanumSquareB%20SDF.asset?fileID=11400000&amp;guid=1c8843ad16f128f4e87ea298302d919b&amp;type=2#NanumSquareB SDF&quot;); font-size: 100px; -unity-text-align: upper-center; margin-top: 200px; margin-bottom: 100px;" />
+        <ui:Button text="List of Exhibits" display-tooltip-when-elided="true" name="ListOfExhibitsButton" style="-unity-font-definition: url(&quot;project://database/Assets/WLIM_Phone/Base/UI/Fonts/NanumSquareR%20SDF.asset?fileID=11400000&amp;guid=1a4976b70a7854143aebf94b989b0b0c&amp;type=2#NanumSquareR SDF&quot;); font-size: 80px; margin-left: 170px; margin-right: 170px; height: 200px;" />
+    </ui:VisualElement>
+    <ui:GroupBox name="Connection" style="height: 467px; align-items: stretch; justify-content: flex-start; flex-direction: row; margin-top: 200px;">
+        <ui:GroupBox style="width: 50%; align-items: center;">
+            <ui:Label text="me : " display-tooltip-when-elided="true" name="MyActorNumLabel" style="-unity-font-definition: url(&quot;project://database/Assets/WLIM_Phone/Base/UI/Fonts/NanumSquareB%20SDF.asset?fileID=11400000&amp;guid=1c8843ad16f128f4e87ea298302d919b&amp;type=2#NanumSquareB SDF&quot;); font-size: 80px; -unity-text-align: middle-center; margin-top: 20px; margin-bottom: 2px; width: 50%; flex-direction: row; align-items: center; margin-left: 4px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+        </ui:GroupBox>
+        <ui:GroupBox style="width: 50%; align-items: center;">
+            <ui:TextField picking-mode="Ignore" label="target :" name="TargetActorNumTextField" style="width: 90%; font-size: 80px; flex-wrap: nowrap; align-items: center; -unity-font-definition: url(&quot;project://database/Assets/WLIM_Phone/Base/UI/Fonts/NanumSquareB%20SDF.asset?fileID=11400000&amp;guid=1c8843ad16f128f4e87ea298302d919b&amp;type=2#NanumSquareB SDF&quot;);" />
+            <ui:Button text="connect" display-tooltip-when-elided="true" name="TargetConnectButton" style="width: 90%; height: 200px; margin-top: 10px; font-size: 80px; -unity-font-definition: url(&quot;project://database/Assets/WLIM_Phone/Base/UI/Fonts/NanumSquareR%20SDF.asset?fileID=11400000&amp;guid=1a4976b70a7854143aebf94b989b0b0c&amp;type=2#NanumSquareR SDF&quot;);" />
+        </ui:GroupBox>
+    </ui:GroupBox>
+    <ui:Button text="test" display-tooltip-when-elided="true" name="TestButton" style="width: 100%; height: 200px; margin-top: 10px; font-size: 80px; -unity-font-definition: url(&quot;project://database/Assets/WLIM_Phone/Base/UI/Fonts/NanumSquareR%20SDF.asset?fileID=11400000&amp;guid=1a4976b70a7854143aebf94b989b0b0c&amp;type=2#NanumSquareR SDF&quot;); align-items: stretch; flex-direction: row; padding-right: 0; padding-left: 0; padding-bottom: 10px; -unity-text-align: middle-center; justify-content: flex-start;" />
+    <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="IMULabel" style="font-size: 70px;" />
+</ui:UXML>

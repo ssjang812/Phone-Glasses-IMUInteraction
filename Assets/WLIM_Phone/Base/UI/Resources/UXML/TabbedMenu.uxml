@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/WiseUIModules/IntegratedUI/Resources/USS/TabbedMenu.uss?fileID=7433441132597879392&amp;guid=d2b5354b89ed41a4eae2b4b91adfb32a&amp;type=3#TabbedMenu" />
+    <ui:VisualElement style="width: 100%; height: 100%;">
+        <ui:VisualElement name="tabContent" style="width: 100%; height: 100%; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; display: flex; visibility: visible;">
+            <ui:VisualElement name="mainContent" style="flex-grow: 1;" />
+            <ui:VisualElement name="settingContent" class="unselectedContent" style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="tabs" style="height: 200px;">
+            <ui:VisualElement name="mainTab" class="tab currentlySelectedTab" style="height: auto; align-items: center; justify-content: center; width: 50%; -unity-font-definition: url(&apos;project://database/Assets/Scripts/WiseUIModules/IntegratedUI/Fonts/NanumSquareB%20SDF.asset?fileID=11400000&amp;guid=1c8843ad16f128f4e87ea298302d919b&amp;type=2#NanumSquareB SDF&apos;);">
+                <ui:Label text="Main" display-tooltip-when-elided="true" style="font-size: 60%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="settingTab" class="tab" style="align-items: center; justify-content: center; width: 50%;">
+                <ui:Label text="Setting" display-tooltip-when-elided="true" style="font-size: 60%; -unity-font-definition: url(&apos;project://database/Assets/Scripts/WiseUIModules/IntegratedUI/Fonts/NanumSquareB%20SDF.asset?fileID=11400000&amp;guid=1c8843ad16f128f4e87ea298302d919b&amp;type=2#NanumSquareB SDF&apos;);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Setting" class="unselectedContent" style="visibility: visible; display: flex; margin-top: 300px; padding-top: 0;">
+        <ui:Button text="Switch to View Port Mode" display-tooltip-when-elided="true" style="margin-top: 2px; font-size: 50px; height: 150px; -unity-font-definition: url(&apos;project://database/Assets/WLIM_Phone/Base/UI/Fonts/NanumSquareR%20SDF.asset?fileID=11400000&amp;guid=1a4976b70a7854143aebf94b989b0b0c&amp;type=2#NanumSquareR SDF&apos;);" />
+        <ui:Button text="Gaze Interaction Mode" display-tooltip-when-elided="true" name="GazeInteractionModeButton" style="font-size: 50px; height: 150px; -unity-font-definition: url(&apos;project://database/Assets/WLIM_Phone/Base/UI/Fonts/NanumSquareR%20SDF.asset?fileID=11400000&amp;guid=1a4976b70a7854143aebf94b989b0b0c&amp;type=2#NanumSquareR SDF&apos;);" />
+        <ui:Button text="Web Viz Mode Button" display-tooltip-when-elided="true" name="WebVizModeButton" style="font-size: 50px; height: 150px; -unity-font-definition: url(&apos;project://database/Assets/WLIM_Phone/Base/UI/Fonts/NanumSquareR%20SDF.asset?fileID=11400000&amp;guid=1a4976b70a7854143aebf94b989b0b0c&amp;type=2#NanumSquareR SDF&apos;);" />
+    </ui:VisualElement>
+</ui:UXML>

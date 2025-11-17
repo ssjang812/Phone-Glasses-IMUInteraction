@@ -1,0 +1,27 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/WiseUIModules/IntegratedUI/Resources/Examples/Main.uss?fileID=7433441132597879392&amp;guid=3493b8135ca342443a09f963eaa74614&amp;type=3#Main" />
+    <ui:VisualElement name="Container" style="width: 100%; height: 100%; flex-direction: column; flex-wrap: nowrap; align-items: flex-start; justify-content: flex-start; -unity-font-definition: url(&apos;project://database/Assets/Scripts/WiseUIModules/IntegratedUI/Fonts/NanumSquareR%20SDF.asset?fileID=11400000&amp;guid=1a4976b70a7854143aebf94b989b0b0c&amp;type=2#NanumSquareR SDF&apos;);">
+        <ui:VisualElement style="width: 100%; height: 50%; background-color: rgb(0, 0, 0); flex-direction: row; align-items: flex-end; justify-content: space-around;">
+            <ui:VisualElement name="Image_Boy" class="image--boy image--boy--inair" />
+            <ui:VisualElement name="image_Robot" style="background-image: url(&apos;project://database/Assets/Plugins/CW/LeanTouch/Examples/Textures/BigLogo+.png?fileID=2800000&amp;guid=864e18f746f74c347b411bcb8a69d426&amp;type=3#BigLogo+&apos;); width: 460px; height: 400px;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="width: 100%; height: 50%; background-color: rgb(255, 255, 255);">
+            <ui:VisualElement>
+                <ui:Label text="Test Application" display-tooltip-when-elided="true" name="Title" class="text--title" />
+                <ui:Label text="this is my first experience with UI builder. this is my first experience with UI builder. this is my first experience with UI builder. this is my first experience with UI builder. this is my first experience with UI builder. this is my first experience with UI builder." display-tooltip-when-elided="true" name="Paragraph" class="text--paragraph" style="visibility: visible;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="justify-content: center; width: 100%; height: 160px; padding-left: 40px; padding-right: 40px;">
+                <ui:Button text="Button" display-tooltip-when-elided="true" name="Button_Open" class="button-blue" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Container_Bottom" style="position: absolute; width: 100%; height: 100%; opacity: 1; display: flex; visibility: visible; overflow: visible;">
+            <ui:VisualElement name="Scrim" class="scrim scrim--fadein" />
+            <ui:VisualElement name="BottomSheet" class="bottomsheet bottomsheet--up" style="transition-property: all; transition-timing-function: ease;">
+                <ui:Label text="BottomSheet" display-tooltip-when-elided="true" class="text--title" style="padding-top: 50px; padding-bottom: 50px;" />
+                <ui:VisualElement name="Image_Girl" class="image--girl image--girl--up" />
+                <ui:Label text="This is my first bottom sheet. This is my first bottom sheet. This is my first bottom sheet. This is my first bottom sheet. This is my first bottom sheet. This is my first bottom sheet. This is my first bottom sheet. This is my first bottom sheet. " display-tooltip-when-elided="true" class="text--paragraph" style="padding-top: 100px; padding-bottom: 100px;" />
+                <ui:Button display-tooltip-when-elided="true" name="Button_Close" style="position: absolute; right: 50px; top: 50px; width: 80px; height: 80px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-image: url(&apos;project://database/Packages/com.unity.collab-proxy/Editor/PlasticSCM/Assets/Images/d_iconclosebutton@2x.png?fileID=2800000&amp;guid=0525793900d728a42936791a8a6de63b&amp;type=3#d_iconclosebutton@2x&apos;); background-color: rgba(255, 255, 255, 0); -unity-background-image-tint-color: rgb(0, 0, 0);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
