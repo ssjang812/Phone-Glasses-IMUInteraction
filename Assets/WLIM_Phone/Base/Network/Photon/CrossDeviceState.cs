@@ -1,14 +1,30 @@
 // CrossDeviceState.cs
-// Brief: Combines and synchronizes state across multiple devices (phone, glasses, etc.) using Photon PUN.
-// - Manages connected device metadata, control modes and prepares per-device state components (e.g., PhoneState, GlassesState).
-// - Uses Photon RaiseEvent and RPC calls to exchange and synchronize device lists and settings between peers.
-// - Key concepts: DeviceType enum, DeviceInfo (per-device metadata), CrossDeviceConnect (initiates pairing),
-// RPC_SyncCrossDeviceState (receives full device list), and SyncCrossDeviceState (final per-device sync).
-// - Note: Serialization currently uses BinaryFormatter to serialize DeviceInfo lists for transport.
-// Inspect and update serialization if you plan cross-platform or secure transport changes.
+// Purpose: Coordinate and synchronize metadata and simple state across multiple devices
+// (Phone, Glasses, Watch, Ring) using Photon PUN. This component centralizes device
+// discovery, pairing and initial state distribution so different clients can prepare
+// per-device components (e.g., `PhoneState`, `GlassesState`).
+//
+// Key concepts:
+// - DeviceType: enumeration of supported device roles.
+// - DeviceInfo: per-device metadata (Photon actor number + device role).
+// - CrossDeviceConnect(int targetActorNumber): send local device list to a specific peer.
+// - RPC_SyncCrossDeviceState(byte[]): RPC used to receive the authoritative device list.
+// - SyncCrossDeviceState(): called once all peers are prepared; triggers per-device sync RPCs.
+// - Event codes used:101 (device list exchange),102 (test/int-list example).
+//
+// Photon usage:
+// - Derives from `MonoBehaviourPunCallbacks` and listens to Photon `EventReceived` for custom events.
+// - Uses `photonView.RPC` to propagate device lists and readiness signals to specific players.
+//
+// Important notes:
+// - This class acts as a singleton and is persisted across scenes (`DontDestroyOnLoad`).
+// - Device lists are currently serialized with `BinaryFormatter` for transport. Consider
+// a safer, cross-platform format (JSON, MessagePack, or Photon custom serialization) before
+// publishing broadly.
+//
 // Where to look next:
-// - `Assets/WLIM_Phone/Base/Network/Photon/` for other Photon helpers.
-// - `PhoneState` and `GlassesState` components for per-device implementation details.
+// - Per-device logic: `PhoneState`, `GlassesState` (in this project under `Assets/WLIM_Phone`).
+// - Networking layer: `Assets/WLIM_Phone/Base/Network/Photon/` for related helpers.
 
 using ExitGames.Client.Photon;
 using Photon.Pun;
@@ -193,7 +209,7 @@ public class CrossDeviceState : MonoBehaviourPunCallbacks
  {
  // 상대의 정보가 나보다 많음, 상대정보 + 나자신 추가로 업데이트
  connectedDevicesInfo.Add(MyDeviceInfo);
- foreach ( DeviceInfo deviceInfo in connectedDevicesInfo)
+ foreach (DeviceInfo deviceInfo in connectedDevicesInfo)
  {
  // ActorNumber를 사용하여 Player 객체 조회
  Player player = GetPlayerByActorNumber(deviceInfo.ActorNumber);
@@ -209,7 +225,7 @@ public class CrossDeviceState : MonoBehaviourPunCallbacks
  {
  // 내 정보가 상대보다 많음, 내정보 + 상대 추가로 업데이트
  ConnectedDevicesInfo.Add(senderPlayerInfo);
- foreach ( DeviceInfo deviceInfo in ConnectedDevicesInfo)
+ foreach (DeviceInfo deviceInfo in ConnectedDevicesInfo)
  {
  // ActorNumber를 사용하여 Player 객체 조회
  Player player = GetPlayerByActorNumber(deviceInfo.ActorNumber);
@@ -234,7 +250,7 @@ public class CrossDeviceState : MonoBehaviourPunCallbacks
  ConnectedDevicesInfo = connectedDevicesInfo;
 
  // 디바이스 상태 동기화에 필요한 인스턴스 생성
- foreach ( DeviceInfo deviceInfo in ConnectedDevicesInfo)
+ foreach (DeviceInfo deviceInfo in ConnectedDevicesInfo)
  {
  switch (deviceInfo.DeviceType)
  {
@@ -254,7 +270,7 @@ public class CrossDeviceState : MonoBehaviourPunCallbacks
  }
 
  //2중 RPC문
- foreach ( DeviceInfo deviceInfo in ConnectedDevicesInfo)
+ foreach (DeviceInfo deviceInfo in ConnectedDevicesInfo)
  {
  Player player = GetPlayerByActorNumber(deviceInfo.ActorNumber);
  if (player != null)
@@ -283,7 +299,7 @@ public class CrossDeviceState : MonoBehaviourPunCallbacks
  {
  case DeviceType.Glasses:
  // 연결된 대상들한테 글래스 RPC 동기화 호출
- foreach ( DeviceInfo deviceInfo in ConnectedDevicesInfo)
+ foreach (DeviceInfo deviceInfo in ConnectedDevicesInfo)
  {
  Player player = GetPlayerByActorNumber(deviceInfo.ActorNumber);
  if (player != null)
@@ -294,7 +310,7 @@ public class CrossDeviceState : MonoBehaviourPunCallbacks
  break;
  case DeviceType.Phone:
  // 연결된 대상들한테 폰 RPC 동기화 호출
- foreach ( DeviceInfo deviceInfo in ConnectedDevicesInfo)
+ foreach (DeviceInfo deviceInfo in ConnectedDevicesInfo)
  {
  Player player = GetPlayerByActorNumber(deviceInfo.ActorNumber);
  if (player != null)
