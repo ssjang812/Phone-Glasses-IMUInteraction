@@ -64,3 +64,16 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         CreateRoom();
     }
 }
+
+// PhotonLobby.cs
+// Brief: Lightweight Photon PUN matchmaking helper used by this project.
+// - Connects to Photon Master server on Start and attempts to join a random room.
+// - If joining fails, it creates a new room with basic RoomOptions.
+// - Synchronizes scene loading by enabling PhotonNetwork.AutomaticallySyncScene on connect.
+// - Intended as a small, central entry point for multiplayer session setup.
+// Where to look next:
+// - Other networking scripts: `Assets/WLIM_Phone/Base/Network/`
+// - Photon setup & settings: check Unity Project Settings and any `PhotonServerSettings` asset.
+// Notes:
+// - Uses Photon PUN callbacks by deriving from `MonoBehaviourPunCallbacks`.
+// - C# 9.0 / .NET Framework 4.7.1 compatible.
