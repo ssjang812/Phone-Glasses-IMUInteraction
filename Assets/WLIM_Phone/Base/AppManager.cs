@@ -12,7 +12,7 @@ public class AppManager : MonoBehaviour
 
     void InitializeApp()
     {
-        // 프레임 속도를 60으로 설정
+        // Set frame speed to 60 FPS
         Application.targetFrameRate = 60;
     }
 }
