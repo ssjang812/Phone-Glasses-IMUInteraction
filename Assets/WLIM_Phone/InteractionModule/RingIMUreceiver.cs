@@ -1,3 +1,19 @@
+// RingIMUreceiver.cs
+// Brief: Receives IMU data from an XSENS DOT ring via an Android native plugin and exposes it to Unity scripts.
+//
+// This project packages the XSENS DOT Android native API into a Unity-friendly plugin so the sensor can be
+// used from within Unity on Android devices. If you need to use the native Android SDK directly or require
+// detailed sensor and SDK documentation, see the official XSENS DOT page:
+// https://base.movella.com/s/xsens-dot-landing-page?language=en_US
+//
+// Usage notes:
+// - The Android plugin class `com.example.xsensedot.UnityDotCommunication` is expected to provide a
+// static instance and call `ReceiveRingIMU(string jsonData)` to deliver sensor payloads.
+// - `ReceiveRingIMU` receives a JSON string that is deserialized into the nested `RingIMU` type
+// (fields: `acc` and `gyr` arrays). Update parsing or schema if the plugin payload changes.
+// - Attach this component to a GameObject in a scene on the Android build; the instance is a singleton
+// and persists across scene loads.
+
 using TMPro;
 using UnityEngine;
 
@@ -6,7 +22,7 @@ public class RingIMUreceiver : MonoBehaviour
     private AndroidJavaClass UnityDotCommunication;
     private AndroidJavaObject _unityDotCommunicationInstance;
 
-    // 테스트용 임시
+    // For quick visual debug in UI (optional)
     public TextMeshProUGUI sensorDataText;
 
     // Singleton instance
@@ -18,55 +34,59 @@ public class RingIMUreceiver : MonoBehaviour
         get { return _instance; }
     }
 
-    // Sensor data received from Android
+    // Latest sensor data received from Android plugin
     private RingIMU _ringIMU;
 
     // Awake is called when the script instance is being loaded
     void Awake()
     {
-        // Ensure only one instance of the class exists
+        // Ensure only one instance of the class exists and persist across scenes
         if (_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(gameObject); // Optional: Keep the object alive between scene changes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); // Destroy duplicate instances
+            Destroy(gameObject);
         }
     }
 
     void Start()
     {
-        // 플러그인의 UnidyDotCommucation을 intantiate하면, 거기서 Base를 instantiate, 하단의 ReceiveRingIMU를 호출함
+        // Instantiate the Android plugin class. The plugin is expected to create its base
+        // and call back into Unity using the `ReceiveRingIMU` method to deliver sensor data.
         UnityDotCommunication = new AndroidJavaClass("com.example.xsensedot.UnityDotCommunication");
         _unityDotCommunicationInstance = UnityDotCommunication.CallStatic<AndroidJavaObject>("instnace");
     }
 
-    // 안드로이드에서 전달된 센서 데이터를 처리하는 함수
+    // Called by the Android plugin to deliver IMU data as a JSON string
     public void ReceiveRingIMU(string jsonData)
     {
-        // 받은 데이터 처리
         Debug.Log("Received sensor data: " + jsonData);
 
-        // JSON 형식의 데이터를 필요한 형태로 파싱하여 활용할 수 있습니다.
-        // 예시: JSON 문자열을 다시 객체로 변환
+        // Parse JSON into the RingIMU data structure. Adjust this if the plugin payload format changes.
         _ringIMU = JsonUtility.FromJson<RingIMU>(jsonData);
-        sensorDataText.text = jsonData;
-        // 여기에 데이터를 활용하는 코드 작성
+
+        if (sensorDataText != null)
+        {
+            sensorDataText.text = jsonData;
+        }
+
+        // TODO: add handling to convert arrays into Vector3, filter, or forward to other systems
     }
 
-    // 외부에서 RingIMU에 접근할 수 있는 프로퍼티
+    // Public accessor for the latest IMU data
     public RingIMU ringIMU
     {
         get { return _ringIMU; }
     }
 
-    // 안드로이드에서 전송한 센서 데이터를 파싱하기 위한 클래스
+    // Serializable container matching expected JSON payload from the Android plugin
     [System.Serializable]
     public class RingIMU
     {
-        public float[] acc;
-        public float[] gyr;
+        public float[] acc; // accelerometer data (e.g., [x, y, z])
+        public float[] gyr; // gyroscope data (e.g., [x, y, z])
     }
 }
