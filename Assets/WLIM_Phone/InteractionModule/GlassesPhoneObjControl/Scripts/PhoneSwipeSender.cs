@@ -25,7 +25,7 @@ public class PhoneSwipeSender : MonoBehaviourPunCallbacks
         return new Tuple<float, float>(vector.x, vector.y);
     }
 
-    // RPC를 통해 보내줄 부분
+    // Send with RPC
     public Vector3 DeltaXYtoXZ()
     {
         Tuple<float, float> screenDeltaXY = ParseScreenDelta();
