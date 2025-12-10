@@ -1,3 +1,17 @@
+// TabbedMenu.cs
+// Brief: Simple controller that manages a tabbed UI built with Unity UIElements (UIDocument + UXML).
+// - Loads initial UXML pages for the main and settings tabs and reflects TemplateContainers into the
+// tab content areas.
+// - Delegates tab interaction logic to `TabbedMenuController` and page navigation to `PageController`.
+// - Helpful files to inspect next: `PageController` (page/stack management), `TabbedMenuController`
+ // (UXML tab selection logic), and the `UXML/` folder for the UI layouts.
+// Usage notes:
+// - Attach this component to the same GameObject as a `UIDocument` that defines `mainContent` and
+// `settingContent` VisualElements.
+// - The class persists across scene loads and exposes global access via `TabbedMenu.Instance`.
+// - Change `mainUxmlPath` and `settingUxmlPath` to point to different UXML resources if you rework
+// the UI layout.
+
 using Photon.Pun;
 using System;
 using System.Collections;
@@ -9,34 +23,38 @@ using UnityEngine.UIElements;
 public class TabbedMenu : MonoBehaviour
 {
     public static TabbedMenu Instance { get; private set; }
-    //앱시작 페이지에 로드할 경로
+    // Path to the UXML files that will be loaded as initial pages for each tab
     private string mainUxmlPath = "UXML/Main";
     private string settingUxmlPath = "UXML/Setting";
 
-    //이벤트 처리 모듈화 
+    // Controllers: Tab interaction is handled by TabbedMenuController, page stacks by PageController
     private TabbedMenuController tabbedMenuController;
     private PageController pageController;
-    //탭 전환에 따라 보여질 메인페이지와 셋팅페이지, 메인페이지의 경우 이벤트에 따라 로드되는 페이지가 달라짐
+    // VisualElements that are swapped when the active page changes
     private VisualElement mainContent;
     private VisualElement settingContent;
 
 
     void Awake()
     {
+        // Singleton pattern: keep one persistent TabbedMenu across scenes
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            // 탭 메뉴에 따른 화면 전환이 작동하도록 컨트롤러 등록
+
+            // Initialize UIElements controllers using the UIDocument on this GameObject
             UIDocument menu = GetComponent<UIDocument>();
             VisualElement root = menu.rootVisualElement;
 
+            // TabbedMenuController encapsulates tab click/selection behavior
             tabbedMenuController = new TabbedMenuController(root);
+            // PageController handles pushing/popping TemplateContainer pages for each category
             pageController = gameObject.AddComponent<PageController>();
 
             tabbedMenuController.RegisterTabCallbacks();
 
-            // 메인 화면에 띄울 컨텐츠 로드
+            // Grab the containers where pages will be reflected and load initial pages
             mainContent = root.Q<VisualElement>("mainContent");
             settingContent = root.Q<VisualElement>("settingContent");
 
@@ -45,15 +63,17 @@ public class TabbedMenu : MonoBehaviour
         }
         else
         {
+            // If a second instance is created, it is ignored/destroyed by the caller if desired
         }
     }
 
     void Update()
     {
+        // Handle Android/Back/Escape behavior to navigate to previous page in the active tab
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Escape");
-            // 탭이 두개이므로 활성화 된 곳에서만 입력받도록 처리
+            // Only handle the currently active tab's back stack
             if(tabbedMenuController.CurTab == TabbedMenuController.TabName.mainTab)
             {
                 TemplateContainer root;
@@ -75,12 +95,14 @@ public class TabbedMenu : MonoBehaviour
         }
     }
 
+    // Replace the contents of the main tab's container with the provided TemplateContainer
     public void ReflectToMainContent(TemplateContainer root)
     {
         mainContent.Clear();
         mainContent.Add(root);
     }
 
+    // Replace the contents of the setting tab's container with the provided TemplateContainer
     public void ReflectToSettingContent(TemplateContainer root)
     {
         settingContent.Clear();
