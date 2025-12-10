@@ -19,7 +19,7 @@ public class PhoneGyroSender : MonoBehaviourPunCallbacks
         }
     }
 
-    // RPC를 통해 보내줄 부분
+    // Send with RPC
     public Vector3 RotDelYXtoScrDelXZ()
     {
         return new Vector3(Input.gyro.rotationRateUnbiased.y * Time.deltaTime, 0, -Input.gyro.rotationRateUnbiased.x * Time.deltaTime);
